@@ -5,7 +5,7 @@ RUN unzip Pickles.zip
 RUN chmod +x Pickles
 
 FROM mcr.microsoft.com/powershell
-WORKDIR /tool
-COPY --from=stage /tool/ /tool/
-
-ENTRYPOINT ["./Pickles"]
+WORKDIR /pickles
+RUN apt-get update && apt-get install -y libgdiplus
+COPY --from=stage /tool/ /usr/local/bin/
+ENTRYPOINT ["Pickles"]
